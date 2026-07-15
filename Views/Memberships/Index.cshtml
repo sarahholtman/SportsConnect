@@ -1,0 +1,101 @@
+@model IEnumerable<SportsConnect.Models.RosterMemberModel>
+
+@{
+    ViewData["Title"] = "Team Roster";
+}
+
+<div class="container mt-5">
+    <div class="card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="mb-1">@ViewBag.TeamName</h1>
+            </div>
+
+            <a class="btn btn-outline-primary" asp-controller="Teams" asp-action="Manage">
+                Back to Manage Teams
+            </a>
+        </div>
+
+        @if (Model.Any())
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Member Name</th>
+                        <th>Position</th>
+                        <th>Join Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var membership in Model)
+                    {
+                        <tr>
+                            <td>@membership.UserName</td>
+
+                            <td>
+                                <form asp-controller="Memberships" asp-action="UpdatePosition" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="membershipId" value="@membership.MembershipId" />
+                                    <select name="position" class="form-select form-select-sm" onchange="this.form.submit()">
+
+                                        <option value="" selected="@(string.IsNullOrEmpty(membership.Position))">N/A</option>
+
+                                        <option value="Player" selected="@(membership.Position == "Player")">Player</option>
+
+                                        <option value="Goalie" selected="@(membership.Position == "Goalie")">Goalie</option>
+
+                                        <option value="Defender" selected="@(membership.Position == "Defender")">Defender
+                                        </option>
+
+                                        <option value="Midfielder" selected="@(membership.Position == "Midfielder")">Midfielder
+                                        </option>
+
+                                        <option value="Forward" selected="@(membership.Position == "Forward")">Forward</option>
+
+                                        <option value="Captain" selected="@(membership.Position == "Captain")">Captain</option>
+
+                                        <option value="Assistant Captain"
+                                                selected="@(membership.Position == "Assistant Captain")">
+                                            Assistant Captain
+                                        </option>
+
+                                    </select>
+                                </form>
+                            </td>
+
+                            <td>@membership.JoinDate.ToString("MMMM d, yyyy")</td>
+                            <td>@membership.Status</td>
+
+                            <td>
+                                @if (!membership.IsTeamLead)
+                                {
+                                    <a class="btn btn-outline-primary btn-sm"
+                                           href="mailto:@membership.Email?subject=Regarding @ViewBag.TeamName">
+                                        Send Message
+                                    </a>
+
+                                    <form asp-controller="Memberships" asp-action="RemoveMember" method="post"
+                                          class="d-inline ms-2">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@membership.MembershipId" />
+
+                                        <button class="btn btn-outline-danger btn-sm" type="submit"
+                                                onclick="return confirm('Are you sure you want to remove this member from the team?');">
+                                            Remove
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>This team does not have any members yet.</p>
+        }
+    </div>
+</div>

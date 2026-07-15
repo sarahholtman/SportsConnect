@@ -1,0 +1,22 @@
+@model SportsConnect.Models.Team
+
+@{
+    ViewData["Title"] = "Delete Team";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <h1>Delete Team</h1>
+
+        <p>Are you sure you want to delete this team?</p>
+
+        <p><strong>@Model.TeamName</strong></p>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="TeamId" />
+
+            <button class="btn btn-danger" type="submit">Delete</button>
+            <a class="btn btn-secondary" asp-action="Manage">Cancel</a>
+        </form>
+    </div>
+</div>

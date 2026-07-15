@@ -1,0 +1,362 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: var(--light-bg);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1,
+h2 {
+    color: var(--dark);
+    font-weight: 600;
+}
+
+table {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+th {
+    background-color: var(--primary);
+    color: var(--light-bg);
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.btn-primary {
+    background-color: var(--dark);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary);
+}
+
+.btn-success {
+    background-color: var(--dark);
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: var(--secondary);
+}
+
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: #F2F0EF;
+    border-color: var(--primary);
+}
+
+.btn-outline-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(75, 110, 72, 0.25);
+}
+
+/* Custom primary action button used for specific pages*/
+.btn-theme {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #F2F0EF;
+}
+
+.btn-theme:hover {
+    background-color: #3c5a3a;
+    border-color: #3c5a3a;
+    color: #F2F0EF;
+}
+
+.navbar {
+    background-color: var(--dark) !important;
+}
+
+.navbar .nav-link {
+    color: #FFFAFA !important;
+}
+
+.navbar .nav-link:hover {
+    color: var(--light-bg) !important;
+}
+
+.navbar-brand {
+    color: var(--light-bg) !important;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.navbar-brand:hover {
+    color: var(--secondary) !important;
+}
+
+.navbar .bi {
+    color: #FFFAFA;
+}
+
+/* This is for the card-based layout used throughout the application for consistent UI structure */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin-bottom: 20px;
+    background: white;
+}
+
+.form-floating>.form-control-plaintext::placeholder,
+.form-floating>.form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating>.form-control-plaintext:focus::placeholder,
+.form-floating>.form-control:focus::placeholder {
+    text-align: start;
+}
+
+:root {
+    --primary: #4B6E48;
+    --secondary: #B2AC88;
+    --secondary-dark: #615833;
+    --contrast: #898989;
+    --light-bg: #F2F0EF;
+    --dark: #000000;
+}
+
+.card h2 {
+    border-bottom: 2px solid var(--secondary);
+    padding-bottom: 5px;
+}
+
+a {
+    color: var(--secondary-dark);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--contrast);
+    text-decoration: underline;
+}
+
+.home-page .home-btn {
+    background-color: var(--primary);
+    color: #F2F0EF;
+    border: none;
+}
+
+.home-page .home-btn:hover {
+    background-color: #3c5a3a;
+}
+
+.home-page .home-btn-outline {
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.home-page .home-btn-outline:hover {
+    background-color: var(--primary);
+    color: #F2F0EF;
+}
+
+/* Centered layout for login page */
+.login-page {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+    background: #FFFAFA;
+    padding: 32px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.login-card h1 {
+    color: var(--dark);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.login-subtitle {
+    color: var(--contrast);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.login-btn {
+    background-color: var(--primary);
+    color: #F2F0EF;
+    border: none;
+    font-weight: 600;
+}
+
+.login-btn:hover {
+    background-color: #3c5a3a;
+    color: #F2F0EF;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 18px;
+    margin-bottom: 0;
+}
+
+/* Centered layout for registration page */
+.register-page {
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-card {
+    width: 100%;
+    max-width: 720px;
+    background: #FFFAFA;
+    padding: 32px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.register-card h1 {
+    color: var(--dark);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.register-subtitle {
+    color: var(--contrast);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.register-btn {
+    background-color: var(--primary);
+    color: #F2F0EF;
+    border: none;
+    font-weight: 600;
+}
+
+.register-btn:hover {
+    background-color: #3c5a3a;
+    color: #F2F0EF;
+}
+
+.register-footer {
+    text-align: center;
+    margin-top: 18px;
+    margin-bottom: 0;
+}
+
+/* Secondary navigation shown only for team leaders */
+.leader-nav {
+    background-color: #E4EBDD;
+    border-bottom: 1px solid #c8d4c2;
+    padding: 0;
+}
+
+.leader-nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    min-height: 48px;
+}
+
+.leader-section-title {
+    color: var(--dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-right: 12px;
+}
+
+.leader-nav a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.leader-nav a:hover {
+    color: var(--dark);
+    text-decoration: underline;
+}
+
+.card h2 {
+    border-bottom: 2px solid #c8d4c2;
+    padding-bottom: 6px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #343837;
+    margin-bottom: 16px;
+}
+
+.section-title.with-border {
+    border-bottom: 2px solid #c8d4c2;
+    padding-bottom: 6px;
+}
+
+.team-detail-list {
+    font-size: 1.05rem;
+    color: #343837;
+}
+
+.team-detail-list p {
+    margin-bottom: 10px;
+}
+
+.team-lead-badge {
+    background-color: #2ecc71;
+    color: #000000;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+.member-badge {
+    background-color: #f88585;
+    color: #000000;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 20px;
+}

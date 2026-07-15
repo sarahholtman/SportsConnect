@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Welcome to SportsConnect!";
+}
+
+<div class="container mt-5 home-page">
+    <div class="text-center mb-5">
+        <h1>Welcome to SportsConnect</h1>
+        <p class="lead">
+            SportsConnect helps adults find local recreational sports teams, apply to join, and manage team memberships
+            in one place.
+        </p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-5 mb-3">
+            <div class="card text-center h-100">
+                <h2>Login</h2>
+                <p>Already have an account? Log in to view your dashboard, teams, and applications.</p>
+                <a class="btn home-btn" asp-controller="Users" asp-action="Login">Login</a>
+            </div>
+        </div>
+
+        <div class="col-md-5 mb-3">
+            <div class="card text-center h-100">
+                <h2>Register</h2>
+                <p>New to SportsConnect? Create an account to search for teams or start managing your own.</p>
+                <a class="btn home-btn" asp-controller="Users" asp-action="Register">Register</a>
+            </div>
+        </div>
+    </div>
+</div>

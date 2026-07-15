@@ -1,0 +1,120 @@
+@model SportsConnect.Models.Team
+
+@{
+    ViewData["Title"] = "Create Team";
+}
+
+<div class="container mt-5" style="max-width: 800px;">
+    <div class="card p-4">
+        <h1 class="mb-2">Create a Team</h1>
+        <p class="text-muted mb-4">
+            Add your team details so local players can find your team and apply to join.
+        </p>
+
+        <form asp-action="Create" method="post">
+
+            <!-- Row 1 -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="TeamName" class="form-label"></label>
+                    <input asp-for="TeamName" class="form-control" />
+                    <span asp-validation-for="TeamName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Sport" class="form-label"></label>
+                    <input asp-for="Sport" class="form-control" />
+                    <span asp-validation-for="Sport" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">City</label>
+                    <input name="City" class="form-control" />
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Province / State</label>
+                    <select id="province" name="Province" class="form-select"></select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Country</label>
+                    <select id="country" name="Country" class="form-select">
+                        <option value="Canada" selected>Canada</option>
+                        <option value="USA">United States</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <label asp-for="ExperienceLevel" class="form-label"></label>
+                    <select asp-for="ExperienceLevel" class="form-select">
+                        <option value="">Select experience level</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Recreational">Recreational</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Competitive">Competitive</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                    <span asp-validation-for="ExperienceLevel" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex gap-2">
+                <button class="btn btn-theme" type="submit">Create Team</button>
+                <a class="btn btn-outline-primary" asp-action="Manage">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    const provincesByCountry = {
+        Canada: [
+            "Alberta", "British Columbia", "Manitoba", "New Brunswick",
+            "Newfoundland and Labrador", "Nova Scotia", "Ontario",
+            "Prince Edward Island", "Quebec", "Saskatchewan",
+            "Northwest Territories", "Nunavut", "Yukon"
+        ],
+        USA: [
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+            "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+            "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
+            "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
+            "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
+            "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
+            "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+            "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        ]
+    };
+
+    function updateProvinces() {
+        const country = document.getElementById("country").value;
+        const provinceDropdown = document.getElementById("province");
+
+        provinceDropdown.innerHTML = "";
+
+        provincesByCountry[country].forEach(p => {
+            const option = document.createElement("option");
+            option.value = p;
+            option.text = p;
+            provinceDropdown.appendChild(option);
+        });
+    }
+
+    document.getElementById("country").addEventListener("change", updateProvinces);
+    window.onload = updateProvinces;
+</script>

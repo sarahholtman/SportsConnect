@@ -1,0 +1,134 @@
+@model SportsConnect.Models.User
+
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="register-page mt-4">
+    <div class="register-card">
+        <h1>Create an Account</h1>
+        <p class="register-subtitle">Join SportsConnect to find local teams or start managing your own.</p>
+
+        <form asp-action="Register" method="post" class="needs-validation" novalidate>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FirstName" class="form-label"></label>
+                    <input asp-for="FirstName" class="form-control" required />
+                    <span asp-validation-for="FirstName"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="LastName" class="form-label"></label>
+                    <input asp-for="LastName" class="form-control" required />
+                    <span asp-validation-for="LastName"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="City" class="form-label"></label>
+                    <input asp-for="City" class="form-control" required />
+                    <span asp-validation-for="City"></span>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Province / State</label>
+                    <select id="province" name="Province" class="form-select" required>
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Country</label>
+                    <select id="country" name="Country" class="form-select" required>
+                        <option value="Canada" selected>Canada</option>
+                        <option value="USA">United States</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" required>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label>Password</label>
+                <input asp-for="PasswordHash" type="password" class="form-control" />
+                <span asp-validation-for="PasswordHash"></span>
+            </div>
+
+            <button class="btn register-btn w-100" type="submit">Create Account</button>
+        </form>
+
+        <p class="register-footer">
+            Already have an account?
+            <a asp-action="Login">Log in</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    const provincesByCountry = {
+        Canada: [
+            "Ontario", "Quebec", "British Columbia", "Alberta",
+            "Manitoba", "Saskatchewan", "Nova Scotia",
+            "New Brunswick", "Newfoundland and Labrador", "Prince Edward Island"
+        ],
+        USA: [
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+            "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+            "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
+            "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
+            "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
+            "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
+            "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+            "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        ]
+    };
+
+    function updateProvinces() {
+        const country = document.getElementById("country").value;
+        const provinceDropdown = document.getElementById("province");
+
+        provinceDropdown.innerHTML = "";
+
+        provincesByCountry[country].forEach(province => {
+            const option = document.createElement("option");
+            option.value = province;
+            option.text = province;
+            provinceDropdown.appendChild(option);
+        });
+    }
+
+    document.getElementById("country").addEventListener("change", updateProvinces);
+
+    // Load default: Canada
+    window.onload = updateProvinces;
+</script>
+
+<script>
+    (() => {
+        'use strict';
+
+        const forms = document.querySelectorAll('.needs-validation');
+
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>

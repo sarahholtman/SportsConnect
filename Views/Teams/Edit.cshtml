@@ -1,0 +1,38 @@
+@model SportsConnect.Models.Team
+
+@{
+    ViewData["Title"] = "Edit Team";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <h1>Edit Team</h1>
+
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="TeamId" />
+
+            <div class="mb-3">
+                <label asp-for="TeamName"></label>
+                <input class="form-control" asp-for="TeamName" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Sport"></label>
+                <input class="form-control" asp-for="Sport" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Location"></label>
+                <input class="form-control" asp-for="Location" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ExperienceLevel"></label>
+                <input class="form-control" asp-for="ExperienceLevel" />
+            </div>
+
+            <button class="btn btn-primary" type="submit">Save Changes</button>
+            <a class="btn btn-secondary" asp-action="Manage">Cancel</a>
+        </form>
+    </div>
+</div>

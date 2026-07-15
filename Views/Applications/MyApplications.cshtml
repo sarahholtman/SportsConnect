@@ -1,0 +1,66 @@
+@model IEnumerable<SportsConnect.Models.MyApplicationViewModel>
+
+@{
+    ViewData["Title"] = "My Applications";
+}
+
+<div class="container mt-5">
+    <div class="card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">My Applications</h1>
+
+            <a class="btn btn-theme" asp-controller="Teams" asp-action="Index">
+                Find a Local Team
+            </a>
+        </div>
+
+        @if (Model.Any())
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        <th>Sport</th>
+                        <th>Date Submitted</th>
+                        <th>Status</th>
+                        <th>Application</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var app in Model)
+                    {
+                        <tr>
+                            <td>@app.TeamName</td>
+                            <td>@app.Sport</td>
+                            <td>@app.ApplicationDate.ToShortDateString()</td>
+                            <td>
+                                @if (app.Status == "Approved")
+                                {
+                                    <span class="badge bg-success">Approved</span>
+                                }
+                                else if (app.Status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Denied</span>
+                                }
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-primary btn-sm" asp-action="Details"
+                                       asp-route-id="@app.ApplicationId">
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>You have not submitted any applications yet.</p>
+        }
+    </div>
+</div>

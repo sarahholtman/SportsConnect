@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SportsConnect1._0</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SportsConnect1._0.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        @using SportsConnect.Data
+    @inject SportsConnectContext DbContext
+
+@{
+            var userId = Context.Session.GetInt32("UserId");
+            var isLeader = false;
+
+            if (userId != null)
+            {
+                isLeader = DbContext.Teams.Any(t => t.LeaderId == userId.Value);
+            }
+        }
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" asp-controller="@(userId != null ? "Dashboard" : "Home")" asp-action="Index">
+                    SportsConnect
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                    <!-- Left side nav -->
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @if (userId == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Users" asp-action="Login">Login</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Users" asp-action="Register">Create an Account</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Teams" asp-action="Index">Search Teams</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Memberships" asp-action="MyMemberships">My
+                                    Memberships</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Applications" asp-action="MyApplications">My
+                                        Applications</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Teams" asp-action="Index">Search Local Teams</a>
+                                    </li>
+                                }
+                            </ul>
+
+                            @if (userId != null)
+                            {
+                                <ul class="navbar-nav ms-auto">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle text-light" href="#" id="profileDropdown" role="button"
+                                               data-bs-toggle="dropdown">
+                                            <i class="bi bi-person-circle"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="Users" asp-action="Profile">My Profile</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="Users" asp-action="Logout">Logout</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            }
+
+                        </div>
+                    </div>
+                </nav>
+
+                @if (userId != null && isLeader)
+                {
+                    <div class="leader-nav">
+                        <div class="container leader-nav-inner">
+                            <span class="leader-section-title">Team Management</span>
+
+                            <a asp-controller="Teams" asp-action="Manage">My Teams</a>
+                            <a asp-controller="Applications" asp-action="Index">Review Applications</a>
+                            <a asp-controller="Memberships" asp-action="LeaderRosters">View Rosters</a>
+                            <a asp-controller="Teams" asp-action="Create">Create a Team</a>
+                        </div>
+                    </div>
+                }
+
+            </header>
+            <div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+
+            <footer class="border-top footer text-muted">
+                <div class="container">
+                    &copy; 2026 - SportsConnect - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            @await RenderSectionAsync("Scripts", required: false)
+        </body>
+
+    </html>

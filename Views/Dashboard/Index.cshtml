@@ -1,0 +1,140 @@
+@model SportsConnect.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-5">
+
+    <h1 class="mb-4">Dashboard</h1>
+
+    <div class="card">
+        <h2>My Memberships</h2>
+
+        @if (Model.MembershipDetails.Any())
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Team Name</th>
+                        <th>Join Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var membership in Model.MembershipDetails)
+                    {
+                        <tr>
+                            <td>@membership.TeamName</td>
+                            <td>@membership.JoinDate.ToString("MMMM d, yyyy")</td>
+                            <td>@membership.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>You are not currently a member of any teams.</p>
+            <p class="mt-3">
+                <a class="btn btn-primary" asp-controller="Teams" asp-action="Index">Join a Team</a>
+            </p>
+        }
+
+    </div>
+
+    <div class="card">
+        <h2>Teams You Lead</h2>
+
+        @if (Model.TeamsILead.Any())
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Team Name</th>
+                        <th>Sport</th>
+                        <th>Location</th>
+                        <th>Experience Level</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var team in Model.TeamsILead)
+                    {
+                        <tr>
+                            <td>@team.TeamName</td>
+                            <td>@team.Sport</td>
+                            <td>@team.Location</td>
+                            <td>@team.ExperienceLevel</td>
+                            <td>
+                                <a asp-controller="Memberships" asp-action="Index" asp-route-teamId="@team.TeamId">View
+                                    Roster</a>
+                                    |
+                                    <a asp-controller="Applications" asp-action="Index">Review Applications</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <p class="mt-3">
+                    <a class="btn btn-success" asp-controller="Teams" asp-action="Create">Create a Team</a>
+                </p>
+            }
+    else
+            {
+                <p>You do not currently lead any teams.</p>
+                <p class="mt-3">
+                    <a class="btn btn-success" asp-controller="Teams" asp-action="Create">Create a Team</a>
+                </p>
+            }
+
+        </div>
+
+        <div class="card">
+            <h2>Teams Near You</h2>
+
+            @if (Model.NearbyTeams.Any())
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Team Name</th>
+                            <th>Sport</th>
+                            <th>Location</th>
+                            <th>Experience Level</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var team in Model.NearbyTeams)
+                        {
+                            <tr>
+                                <td>@team.TeamName</td>
+                                <td>@team.Sport</td>
+                                <td>@team.Location</td>
+                                <td>@team.ExperienceLevel</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" asp-controller="Teams" asp-action="Details"
+                                           asp-route-id="@team.TeamId">
+                                        View Details
+                                    </a>
+
+                                    <a class="btn btn-outline-primary btn-sm ms-2" asp-controller="Applications" asp-action="Create"
+                                           asp-route-teamId="@team.TeamId">
+                                        Submit Application
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No teams near you were found.</p>
+                <a class="btn btn-primary" asp-controller="Teams" asp-action="Index">Search Local Teams</a>
+            }
+
+        </div>
+
+    </div>

@@ -1,0 +1,115 @@
+@model SportsConnect.Models.User
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <h1>Edit Profile</h1>
+
+        <form asp-action="EditProfile" method="post">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <input type="hidden" asp-for="UserId" />
+                    <input type="hidden" asp-for="PasswordHash" />
+                    <input type="hidden" asp-for="Role" />
+
+                    <div class="mb-3">
+                        <label asp-for="FirstName"></label>
+                        <input class="form-control" asp-for="FirstName" />
+                        <span asp-validation-for="FirstName"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="LastName"></label>
+                        <input class="form-control" asp-for="LastName" />
+                        <span asp-validation-for="LastName"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email"></label>
+                        <input class="form-control" asp-for="Email" />
+                        <span asp-validation-for="Email"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="City" class="form-label"></label>
+                            <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Province" class="form-label"></label>
+
+                            <select id="province" asp-for="Province" class="form-select">
+                            </select>
+
+                            <span asp-validation-for="Province" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Country" class="form-label"></label>
+
+                            <select id="country" asp-for="Country" class="form-select">
+                                <option value="Canada">Canada</option>
+                                <option value="USA">United States</option>
+                            </select>
+
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                    <a class="btn btn-outline-primary" asp-action="Profile">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    const provincesByCountry = {
+        Canada: [
+            "Alberta", "British Columbia", "Manitoba", "New Brunswick",
+            "Newfoundland and Labrador", "Nova Scotia", "Ontario",
+            "Prince Edward Island", "Quebec", "Saskatchewan",
+            "Northwest Territories", "Nunavut", "Yukon"
+        ],
+        USA: [
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+            "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+            "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
+            "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
+            "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
+            "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
+            "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+            "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        ]
+    };
+
+    function updateProvinces() {
+        const country = document.getElementById("country").value;
+        const provinceDropdown = document.getElementById("province");
+
+        provinceDropdown.innerHTML = "";
+
+        provincesByCountry[country].forEach(p => {
+            const option = document.createElement("option");
+            option.value = p;
+            option.text = p;
+            provinceDropdown.appendChild(option);
+        });
+    }
+
+    document.getElementById("country").addEventListener("change", updateProvinces);
+    window.onload = updateProvinces;
+</script>

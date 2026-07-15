@@ -1,0 +1,72 @@
+@model IEnumerable<SportsConnect.Models.ApplicationViewModel>
+
+@{
+    ViewData["Title"] = "Review Applications";
+}
+
+<div class="container mt-5">
+    <div class="card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Review Applications</h1>
+
+            <a class="btn btn-outline-primary" asp-controller="Teams" asp-action="Manage">
+                Back to My Teams
+            </a>
+        </div>
+
+        @if (Model.Any())
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Applicant</th>
+                        <th>Team</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Application</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var application in Model)
+                    {
+                        <tr>
+                            <td>@application.UserName</td>
+                            <td>@application.TeamName</td>
+                            <td>@application.ApplicationDate.ToShortDateString()</td>
+                            <td>@application.Status</td>
+
+                            <td>
+                                <a class="btn btn-outline-primary btn-sm" asp-action="Details"
+                                       asp-route-id="@application.ApplicationId">
+                                    View Application
+                                </a>
+                            </td>
+
+                            <td>
+                                @if (application.Status == "Pending")
+                                {
+                                    <form asp-action="Approve" asp-route-id="@application.ApplicationId" method="post"
+                                          class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-theme btn-sm" type="submit">Approve</button>
+                                    </form>
+
+                                    <form asp-action="Deny" asp-route-id="@application.ApplicationId" method="post"
+                                          class="d-inline ms-1">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-outline-danger btn-sm" type="submit">Deny</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No applications are currently waiting for review.</p>
+        }
+    </div>
+</div>

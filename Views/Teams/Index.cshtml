@@ -1,0 +1,110 @@
+@model IEnumerable<SportsConnect.Models.Team>
+
+@{
+    ViewData["Title"] = "Teams";
+    var userId = Context.Session.GetInt32("UserId");
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["Message"]
+    </div>
+}
+
+<div class="d-flex justify-content-between align-items-center mt-5 mb-4">
+    <h1 class="mb-0">Find a Local Team</h1>
+
+    @if (userId != null)
+    {
+        <a class="btn btn-theme" asp-action="Create">
+            <i class="bi bi-plus-lg"></i> Create a Team
+        </a>
+    }
+    else
+    {
+        <a class="btn btn-theme" asp-controller="Users" asp-action="Login">
+            <i class="bi bi-plus-lg"></i> Create a Team
+        </a>
+    }
+</div>
+
+<form asp-action="Index" method="get" class="card p-4 mb-5">
+    <h2 class="section-title with-border">Search Teams</h2>
+
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <label class="form-label">Keyword</label>
+            <input type="text" name="keyword" class="form-control" placeholder="Team name or keyword" />
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label class="form-label">City</label>
+            <input type="text" name="city" class="form-control" placeholder="City" />
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label class="form-label">Sport</label>
+            <input type="text" name="sport" class="form-control" placeholder="Sport" />
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label class="form-label">Experience Level</label>
+            <select name="experienceLevel" class="form-select">
+                <option value="">All Levels</option>
+                <option value="Beginner" selected="@(Context.Request.Query["experienceLevel"] == "Beginner")">Beginner
+                </option>
+                <option value="Recreational" selected="@(Context.Request.Query["experienceLevel"] == "Recreational")">
+                    Recreational</option>
+                    <option value="Intermediate" selected="@(Context.Request.Query["experienceLevel"] == "Intermediate")">
+                        Intermediate</option>
+                        <option value="Competitive" selected="@(Context.Request.Query["experienceLevel"] == "Competitive")">
+                            Competitive</option>
+                            <option value="Advanced" selected="@(Context.Request.Query["experienceLevel"] == "Advanced")">Advanced
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <a asp-action="Index" class="btn btn-outline-primary">Clear</a>
+                </div>
+            </form>
+
+            <div class="card p-4 mt-5">
+                <h2 class="section-title">Available Teams</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sport</th>
+                            <th>Team Name</th>
+                            <th>City</th>
+                            <th>Experience Level</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var team in Model)
+                        {
+                            <tr>
+                                <td>@team.Sport</td>
+                                <td>@team.TeamName</td>
+                                <td>@team.Location</td>
+                                <td>@team.ExperienceLevel</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@team.TeamId">
+                                        View Details
+                                    </a>
+
+                                    <a class="btn btn-outline-primary btn-sm ms-2" asp-controller="Applications" asp-action="Create"
+                                           asp-route-teamId="@team.TeamId">
+                                        Submit Application
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>

@@ -1,0 +1,56 @@
+@model IEnumerable<SportsConnect.Models.Team>
+
+@{
+    ViewData["Title"] = "Manage Teams";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Manage Teams</h1>
+
+    <div class="card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Teams You Lead</h2>
+            <a class="btn btn-primary" asp-controller="Teams" asp-action="Create">Create a New Team</a>
+        </div>
+
+        @if (Model.Any())
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Team Name</th>
+                        <th>Sport</th>
+                        <th>Location</th>
+                        <th>Experience Level</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var team in Model)
+                    {
+                        <tr>
+                            <td>@team.TeamName</td>
+                            <td>@team.Sport</td>
+                            <td>@team.Location</td>
+                            <td>@team.ExperienceLevel</td>
+                            <td>
+                                <a asp-controller="Teams" asp-action="Edit" asp-route-id="@team.TeamId">Edit</a>
+                                |
+                                <a asp-controller="Memberships" asp-action="Index" asp-route-teamId="@team.TeamId">Roster</a>
+                                |
+                                <a asp-controller="Applications" asp-action="Index">Applications</a>
+                                |
+                                <a class="text-danger" asp-controller="Teams" asp-action="Delete"
+                                   asp-route-id="@team.TeamId">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>You do not currently lead any teams.</p>
+        }
+    </div>
+</div>

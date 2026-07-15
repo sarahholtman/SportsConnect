@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-page">
+    <div class="login-card">
+        <h1>Welcome Back!</h1>
+        <p class="login-subtitle">Log in to access your SportsConnect account. An account is required to create and
+            apply for teams.</p>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <form asp-action="Login" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input class="form-control" type="email" name="email" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input class="form-control" type="password" name="password" />
+                </div>
+
+                <button class="btn login-btn w-100" type="submit">Login</button>
+            </form>
+
+            <p class="login-footer">
+                Need an account?
+                <a asp-action="Register">Create one</a>
+            </p>
+        </div>
+    </div>
