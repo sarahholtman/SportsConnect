@@ -11,3 +11,29 @@ The project was built using C#, ASP.NET Core MVC, Entity Framework Core, and SQL
 - View team rosters
 - User dashboard showing memberships, applications, and teams managed
 - SQLite database with Entity Framework Core
+
+## Screenshots
+
+### Home Page
+
+![Home Page](screenshots/Homepage.png)
+
+### Account Creation
+
+![Account Creation](screenshots/AccountCreation.png)
+
+### User Dashboard
+
+![User Dashboard](screenshots/UserDashboard.png)
+
+### Team Search
+
+![Team Search](screenshots/TeamSearch.png)
+
+### Applications
+
+![Applications](screenshots/Applications.png)
+
+### Team Roster
+
+![Team Roster](screenshots/TeamRoster.png)
