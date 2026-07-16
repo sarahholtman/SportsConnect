@@ -16,24 +16,24 @@ The project was built using C#, ASP.NET Core MVC, Entity Framework Core, and SQL
 
 ### Home Page
 
-![Home Page](screenshots/Homepage.png)
+![Home Page](screenshots/Homepage.jpg)
 
 ### Account Creation
 
-![Account Creation](screenshots/AccountCreation.png)
+![Account Creation](screenshots/AccountCreation.jpg)
 
 ### User Dashboard
 
-![User Dashboard](screenshots/UserDashboard.png)
+![User Dashboard](screenshots/UserDashboard.jpg)
 
 ### Team Search
 
-![Team Search](screenshots/TeamSearch.png)
+![Team Search](screenshots/TeamSearch.jpg)
 
 ### Applications
 
-![Applications](screenshots/Applications.png)
+![Applications](screenshots/Applications.jpg)
 
 ### Team Roster
 
-![Team Roster](screenshots/TeamRoster.png)
+![Team Roster](screenshots/TeamRoster.jpg)
